@@ -1,22 +1,37 @@
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 static PyObject *StringTooShortError = NULL;
 
 static PyObject *method_calc(PyObject *self, PyObject *args) {
     int x, y = 0;
     int a, b = 0;
+    const char *s;
+    const char *t = "calc";
+    char u[4];
     int total = 1;
 
     /* Parse arguments */
-    if(!PyArg_ParseTuple(args, "ii", &x, &y)) {
+    if(!PyArg_ParseTuple(args, "iis", &x, &y, &s)) {
         return NULL;
     }
 
     a = x;
     b = y;
-    total = a + b;
 
-    return PyLong_FromLong(total);
+    printf("S compare here: %d", strcmp(s, "calc"));
+
+    if (strcmp(s, "calc") < 1)
+        total = a + b;
+    else
+        total = 129;
+
+    // return PyLong_FromLong("fromcalc");
+    return PyUnicode_FromFormat("%s", "fromcalc");
 }
 
 static PyMethodDef CalcMethods[] = {
