@@ -30,7 +30,7 @@ static PyObject *method_calc(PyObject *self, PyObject *args) {
     else
         total = 129;
 
-    // return PyLong_FromLong("fromcalc");
+    // return PyLong_FromLong(total);
     return PyUnicode_FromFormat("%s", "fromcalc");
 }
 
